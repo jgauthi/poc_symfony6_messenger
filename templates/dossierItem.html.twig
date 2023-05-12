@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% set title = 'Dossier #' ~ dossier.id %}
+
+{% block body %}
+    <p>
+        Title: {{ dossier.title }}, client: {{ dossier.client.name }}.<br>
+        Date: {{ dossier.createdDate|date('d/m/Y') }} by {{ dossier.author.name }}<br>
+        Status: {{ dossier.status.name[:1]|upper ~ dossier.status.name[1:]|lower }}<br>
+    </p>
+    <p>{{ dossier.content }}</p>
+
+    {% if dossier.categories is not empty %}
+    Categories:
+    <div class="container">
+        <div class="row">
+            {% for category in dossier.categories %}
+            <div class="col-3" style="text-align: center; padding: 10px;">
+                {% if category.imageRelativePath is not empty %}
+                    <img src="{{ asset(category.imageRelativePath) }}" alt="category logo"><br>
+                {% endif %}
+                <span>{{ category.title }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
