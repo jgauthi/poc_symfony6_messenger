@@ -1,4 +1,4 @@
-# POC Symfony 6
+# POC Symfony 6.2 with Messenger component
 ## Prerequisites
 
 * The PHP version must be greater than or equal to PHP 8.2
@@ -10,15 +10,25 @@
 More information on [symfony website](https://symfony.com/doc/6.2/reference/requirements.html).
 
 ## Features developed
-To completed by POC...
+Messenger showcase.
 
-### Instructions pour la construction du POC
-Notes de ce package (à retirer dans le poc): Ce package ne propose pas par défaut, certaines lib car elles ne semblent pas utile pour la plupart des pocs. Cependant, vous pouvez les installer manuellement si nécessaire. Exemple:
+**Current study:** Please review, edit and commit them: these files are yours.
 
-* HttpClient: `composer require symfony/http-client`
-* Mailer: `composer require symfony/mailer`
-* Notifier: `composer require symfony/notifier`
-* TestUnits: `composer require --dev symfony/test-pack`
+symfony/messenger  instructions:
+
+* You're ready to use the Messenger component. You can define your own message buses
+  or start using the default one right now by injecting the message_bus service
+  or type-hinting Symfony\Component\Messenger\MessageBusInterface in your code.
+
+* To send messages to a transport and handle them asynchronously:
+
+	1. Update the MESSENGER_TRANSPORT_DSN env var in .env if needed
+	   and framework.messenger.transports.async in config/packages/messenger.yaml;
+	2. (if using Doctrine) Generate a Doctrine migration bin/console doctrine:migration:diff
+	   and execute it bin/console doctrine:migration:migrate
+	3. Route your message classes to the async transport in config/packages/messenger.yaml.
+
+* Read the documentation at https://symfony.com/doc/current/messenger.html
 
 ## Installation
 Command lines:

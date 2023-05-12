@@ -1,6 +1,6 @@
 {
-  "name": "jgauthi/template_symfony_starterpack",
-  "description": "Symfony with some entities and base controller for create POC",
+  "name": "jgauthi/poc_symfony6_messenger",
+  "description": "POC Symfony 6.2 with messenger component",
   "type": "project",
   "license": "GPL-3.0-only",
   "require": {
@@ -21,6 +21,7 @@
     "symfony/form": "*",
     "symfony/framework-bundle": "*",
     "symfony/intl": "*",
+    "symfony/messenger": "*",
     "symfony/monolog-bundle": "3.*",
     "symfony/process": "*",
     "symfony/property-access": "*",
