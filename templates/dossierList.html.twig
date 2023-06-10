@@ -8,6 +8,13 @@
                 Title: {{ dossier.title }}, client: {{ dossier.client.name }}.<br>
                 Date: {{ dossier.createdDate|date('d/m/Y') }}<br>
                 <a href="{{ path('dossierItem', {'id': dossier.id}) }}">Consult dossier</a>
+                <em style="font-size: 0.9em">
+                    {% if dossier.comments.count > 0 %}
+                        ({{ dossier.comments.count }} comments)
+                    {% else %}
+                        (no comments)
+                    {% endif %}
+                </em>
             </p>
         </div>
     {% else %}

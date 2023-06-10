@@ -24,4 +24,28 @@
         </div>
     </div>
     {% endif %}
+
+    {% if dossier.comments is not empty %}
+        <br>
+        <h3>Comments:</h3>
+        <div class="container">
+            <div class="row">
+                {% for comment in dossier.comments %}
+                    <div class="col-12" style="padding: 10px;">
+                        <p>
+                            <strong>On {{ comment.createdDate|date('d/m/Y') }}, by
+                                {% if comment.author is not empty %}
+                                    {{ comment.author.username|capitalize }}
+                                {% else %}
+                                    <em>Deleted user</em>
+                                {% endif %}
+                            </strong><br>
+                            <span>{{ comment.content|nl2br }}</span>
+                        </p>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
