@@ -9,26 +9,9 @@
 
 More information on [symfony website](https://symfony.com/doc/6.2/reference/requirements.html).
 
-## Features developed
-Messenger showcase.
+## Messenger POC
+Messenger provides a message bus with the ability to send messages and then handle them immediately in your application or send them through transports (e.g. queues) to be handled later. To learn more deeply about it, read the [Messenger component docs](https://symfony.com/doc/6.2/messenger.htmlcomponents/messenger.html).
 
-**Current study:** Please review, edit and commit them: these files are yours.
-
-symfony/messenger  instructions:
-
-* You're ready to use the Messenger component. You can define your own message buses
-  or start using the default one right now by injecting the message_bus service
-  or type-hinting Symfony\Component\Messenger\MessageBusInterface in your code.
-
-* To send messages to a transport and handle them asynchronously:
-
-	1. Update the MESSENGER_TRANSPORT_DSN env var in .env if needed
-	   and framework.messenger.transports.async in config/packages/messenger.yaml;
-	2. (if using Doctrine) Generate a Doctrine migration bin/console doctrine:migration:diff
-	   and execute it bin/console doctrine:migration:migrate
-	3. Route your message classes to the async transport in config/packages/messenger.yaml.
-
-* Read the documentation at https://symfony.com/doc/current/messenger.html
 
 ## Installation
 Command lines:
@@ -41,24 +24,31 @@ composer install
 
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate -n
-
-# Optional
-php bin/console doctrine:fixtures:load -n
 ```
 
-For the asset symlink install, launch a terminal on administrator in windows environment.
 
 ## Usage
 Just execute this command to run the built-in web server _(require [symfony installer](https://symfony.com/download))_ and access the application in your browser at <http://localhost:8000>:
 
 ```bash
-# Dev env
+# Edit "MAILER_DSN" in .env.local with SMTP service (example: mailtrap)
+
+# Install fixtures (only for dev environnement), start server
+symfony console doctrine:fixtures:load -n
 symfony server:start
 
-# Test env
-APP_ENV=test php -d variables_order=EGPCS -S 127.0.0.1:8000 -t public/
+# Launch Messages service
+symfony console messenger:consume async
 ```
 
-Alternatively, you can [configure a web server](https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html) like Nginx or Apache to run the application.
+Debug commands:
 
-Your commit is checked by several dev tools (like phpstan, php cs fixer...). These tools were managed by [Grumphp](https://github.com/phpro/grumphp), you can edit configuration on file [grumphp.yml](./grumphp.yml) or check manually with the command: `./vendor/bin/grumphp run`.
+```shell
+php bin/console messenger:consume async -vv
+
+# Retry failed messages several times (3 attempts)
+php bin/console messenger:failed:show
+php bin/console messenger:failed:retry
+```
+
+Enjoy!

@@ -1,5 +1,6 @@
-<h1>{{ dossier.title }}</h1>
+<h3>New comments in dossier: <a href="{{ absolute_url(path('dossierItem', {'id': comment.dossier.id})) }}">{{ comment.dossier.title }}</a></h3>
+<p>On {{ comment.createdDate|date('d/m/Y') }}, by {{ comment.author.username|capitalize }}.</p>
 
 <div>
-    {{newsletter.content|raw}}
+    {{comment.content|nl2br}}
 </div>

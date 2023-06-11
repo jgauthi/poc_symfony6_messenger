@@ -3,17 +3,12 @@ namespace App\Message;
 
 class SendComment
 {
-    public function __construct(private readonly int $userId, private readonly int $dossierId)
+    public function __construct(private readonly int $commentId)
     {
     }
 
-    public function getUserId(): int
+    public function getCommentId(): int
     {
-        return $this->userId;
-    }
-
-    public function getDossierId(): int
-    {
-        return $this->dossierId;
+        return $this->commentId;
     }
 }
