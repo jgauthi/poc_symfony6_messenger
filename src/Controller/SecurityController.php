@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\DataFixtures\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\{Request, Response};
@@ -25,6 +26,10 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+
+            // Some infos for test the poc, must be remove in "real" application
+            'user_accounts_logins' => array_keys(UserFixtures::USERS),
+            'user_default_password' => UserFixtures::PASSWORD,
         ]);
     }
 

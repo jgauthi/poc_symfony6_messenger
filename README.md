@@ -21,9 +21,11 @@ Command lines:
 composer install
 
 # (optional) Copy and edit configuration values ".env.local"
+# Edit "MAILER_DSN" in .env.local with SMTP service (example: mailtrap)
 
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate -n
+php bin/console doctrine:fixtures:load -n
 ```
 
 
@@ -31,10 +33,6 @@ php bin/console doctrine:migrations:migrate -n
 Just execute this command to run the built-in web server _(require [symfony installer](https://symfony.com/download))_ and access the application in your browser at <http://localhost:8000>:
 
 ```bash
-# Edit "MAILER_DSN" in .env.local with SMTP service (example: mailtrap)
-
-# Install fixtures (only for dev environnement), start server
-symfony console doctrine:fixtures:load -n
 symfony server:start
 
 # Launch Messages service
