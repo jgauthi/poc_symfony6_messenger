@@ -6,6 +6,7 @@
 * The JSON extension must be enabled
 * The Ctype extension must be enabled
 * The date.timezone parameter must be defined in php.ini
+* Docker & Docker-compose
 
 More information on [symfony website](https://symfony.com/doc/6.2/reference/requirements.html).
 
@@ -17,11 +18,9 @@ Messenger provides a message bus with the ability to send messages and then hand
 Command lines:
 
 ```bash
-# clone current repot
 composer install
 
 # (optional) Copy and edit configuration values ".env.local"
-# Edit "MAILER_DSN" in .env.local with SMTP service (example: mailtrap)
 
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate -n
@@ -33,11 +32,17 @@ php bin/console doctrine:fixtures:load -n
 Just execute this command to run the built-in web server _(require [symfony installer](https://symfony.com/download))_ and access the application in your browser at <http://localhost:8000>:
 
 ```bash
+docker-compose up -d
 symfony server:start
 
 # Launch Messages service
 symfony console messenger:consume async
+
+# For stop services
+docker-compose stop && symfony server:stop
 ```
+
+For look at emails send by the smtp service, look at this url <http://localhost:1080> (maildev).
 
 Debug commands:
 
