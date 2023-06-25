@@ -23,9 +23,10 @@ docker-compose exec app composer install
 
 # (optional) Copy and edit configuration values ".env.local"
 
-docker-compose exec app symfony console doctrine:database:create
+docker-compose exec app symfony console doctrine:database:create --if-not-exists
 docker-compose exec app symfony console doctrine:migrations:migrate -n
 docker-compose exec app symfony console doctrine:fixtures:load -n
+sudo chown -R $USER:www-data .
 ```
 
 
@@ -42,7 +43,8 @@ docker-compose exec app symfony console messenger:consume async
 docker-compose stop
 ```
 
-For look at emails send by the smtp service, look at this url <http://localhost:1080> (maildev).
+* For look at emails send by the smtp service, look at this url <http://localhost:1080> (maildev).
+* For database management, you can look at phpmyadmin: <http://localhost:8080>.
 
 Debug commands:
 
