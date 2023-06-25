@@ -1,0 +1,49 @@
+# https://github.com/docker-library/php/blob/f4baf0edbc4e05e241938c68bcc7c9635707583d/7.2/stretch/apache/Dockerfile
+FROM php:8.2-apache
+MAINTAINER J.GAUTHI <github.com/jgauthi>
+
+# Some libs
+RUN apt-get update && apt-get install -y --no-install-recommends vim curl locales apt-utils
+
+# https://github.com/mlocati/docker-php-extension-installer
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions \
+    intl \
+    memcached \
+    mysqli pdo_mysql \
+    mbstring \
+    openssl \
+    soap \
+    tidy \
+    apcu opcache \
+    xdebug \
+    zip
+
+# Install composer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# Install symfony cli
+RUN curl -sS https://get.symfony.com/cli/installer | bash && mv /root/.symfony5/bin/symfony /usr/local/bin/
+RUN chown -R www-data:www-data /var/www
+
+# Install xdebug conf
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Purge
+RUN rm -rf /var/lib/apt/lists/* \
+    && apt-get purge --auto-remove -y g++ \
+    && apt-get clean
+
+# PHP Conf
+# RUN usermod -u 1000 www-data
+COPY php.ini /usr/local/etc/php/php.ini
+
+# Apache conf
+COPY apache_default.conf /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite headers
+
+
+# USER www-data
+WORKDIR /var/www/project/poc-messenger

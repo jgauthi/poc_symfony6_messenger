@@ -18,13 +18,14 @@ Messenger provides a message bus with the ability to send messages and then hand
 Command lines:
 
 ```bash
-composer install
+docker-compose up -d
+docker-compose exec app composer install
 
 # (optional) Copy and edit configuration values ".env.local"
 
-php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate -n
-php bin/console doctrine:fixtures:load -n
+docker-compose exec app symfony console doctrine:database:create
+docker-compose exec app symfony console doctrine:migrations:migrate -n
+docker-compose exec app symfony console doctrine:fixtures:load -n
 ```
 
 
@@ -33,13 +34,12 @@ Just execute this command to run the built-in web server _(require [symfony inst
 
 ```bash
 docker-compose up -d
-symfony server:start
 
 # Launch Messages service
-symfony console messenger:consume async
+docker-compose exec app symfony console messenger:consume async
 
 # For stop services
-docker-compose stop && symfony server:stop
+docker-compose stop
 ```
 
 For look at emails send by the smtp service, look at this url <http://localhost:1080> (maildev).
@@ -47,11 +47,11 @@ For look at emails send by the smtp service, look at this url <http://localhost:
 Debug commands:
 
 ```shell
-php bin/console messenger:consume async -vv
+docker-compose exec app symfony console messenger:consume async -vv
 
 # Retry failed messages several times (3 attempts)
-php bin/console messenger:failed:show
-php bin/console messenger:failed:retry
+docker-compose exec app symfony console messenger:failed:show
+docker-compose exec app symfony console messenger:failed:retry
 ```
 
 Enjoy!
