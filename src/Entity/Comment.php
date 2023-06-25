@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Entity\Trait\CreatedDateTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\CommentRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -19,6 +20,7 @@ class Comment
     private Dossier $dossier;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 10), Assert\NotBlank]
     private string $content;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

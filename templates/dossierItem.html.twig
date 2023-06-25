@@ -48,4 +48,10 @@
             </div>
         </div>
     {% endif %}
+
+    {% if app.user %}
+        {{ form(formComment) }}
+    {% else %}
+        <p>You can <a href="{{ path('app_login') }}">log in</a> for post comment.</p>
+    {% endif %}
 {% endblock %}
