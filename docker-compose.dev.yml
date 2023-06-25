@@ -1,0 +1,34 @@
+version: '3.6'
+services:
+  mailer:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=${DB_HOST}
+      - PMA_PORT=${DB_PORT}
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASS}
+    volumes:
+      - ./.docker/phpmyadmin/config.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - ./.docker/phpmyadmin/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    restart: always
+    depends_on:
+      - dbmysql
+
+  app:
+    ports:
+      - "8000:80"
+
+  dbmysql:
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+volumes:
+  mysql-db: #Keep database on local docker storage

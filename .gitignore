@@ -17,3 +17,7 @@
 !public/images/*/.gitignore
 public/images/*
 ###< vich/uploader-bundle ###
+
+###> docker-compose ###
+docker-compose.override.yml
+###< docker-compose ###

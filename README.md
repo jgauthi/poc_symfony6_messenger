@@ -7,6 +7,8 @@
 * The Ctype extension must be enabled
 * The date.timezone parameter must be defined in php.ini
 * Docker & Docker-compose
+* `Make` command. On linux, install with `sudo apt install build-essential`. On Windows, [see here](https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows/54086635).
+
 
 More information on [symfony website](https://symfony.com/doc/6.2/reference/requirements.html).
 
@@ -18,29 +20,23 @@ Messenger provides a message bus with the ability to send messages and then hand
 Command lines:
 
 ```bash
-docker-compose up -d
-docker-compose exec app composer install
+make install db-install
 
 # (optional) Copy and edit configuration values ".env.local"
-
-docker-compose exec app symfony console doctrine:database:create --if-not-exists
-docker-compose exec app symfony console doctrine:migrations:migrate -n
-docker-compose exec app symfony console doctrine:fixtures:load -n
-sudo chown -R $USER:www-data .
 ```
 
 
 ## Usage
-Just execute this command to run the built-in web server _(require [symfony installer](https://symfony.com/download))_ and access the application in your browser at <http://localhost:8000>:
+Use docker for execute the built-in web server and access the application in your browser at <http://localhost:8000>:
 
 ```bash
-docker-compose up -d
+make up
 
 # Launch Messages service
-docker-compose exec app symfony console messenger:consume async
+make messenger
 
 # For stop services
-docker-compose stop
+make stop
 ```
 
 * For look at emails send by the smtp service, look at this url <http://localhost:1080> (maildev).
@@ -49,11 +45,11 @@ docker-compose stop
 Debug commands:
 
 ```shell
-docker-compose exec app symfony console messenger:consume async -vv
+make messenger CMD="-vv"
 
 # Retry failed messages several times (3 attempts)
-docker-compose exec app symfony console messenger:failed:show
-docker-compose exec app symfony console messenger:failed:retry
+make sf-cmd CMD="messenger:failed:show"
+make sf-cmd CMD="messenger:failed:retry"
 ```
 
 Enjoy!
