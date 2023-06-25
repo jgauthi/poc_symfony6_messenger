@@ -1,18 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Comment;
-use App\Entity\Dossier;
 use App\Entity\Enum\DossierStatusEnum;
-use App\Entity\User;
+use App\Entity\{Comment, Dossier, User};
 use App\Form\CommentType;
-use App\Message\SendComment;
-use App\Repository\CommentRepository;
-use App\Repository\DossierRepository;
+use App\Repository\{CommentRepository, DossierRepository};
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
@@ -39,7 +34,6 @@ class DossierController extends AbstractController
         #[CurrentUser] ?User $user,
         Request $request,
         CommentRepository $commentRepository,
-        MessageBusInterface $bus,
     ): Response {
         $formComment = null;
         if (!empty($user)) {
@@ -50,7 +44,6 @@ class DossierController extends AbstractController
             if ($formComment->isSubmitted() && $formComment->isValid()) {
                 $comment = $formComment->getData();
                 $commentRepository->save($comment, flush: true);
-                $bus->dispatch(new SendComment($comment->getId()));
 
                 $this->addFlash('success', 'Your comment has been added.');
 

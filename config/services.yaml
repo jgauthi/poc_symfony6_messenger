@@ -31,3 +31,7 @@ services:
     tags:
       - { name: doctrine.event_subscriber, event: prePersist }
       - { name: doctrine.event_subscriber, event: preUpdate }
+
+  App\Event\EntityListener\CommentListener:
+    tags:
+      - { name: doctrine.orm.entity_listener }
