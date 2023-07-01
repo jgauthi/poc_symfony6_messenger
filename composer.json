@@ -13,6 +13,7 @@
     "doctrine/doctrine-migrations-bundle": "*",
     "doctrine/orm": "2.*",
     "knplabs/knp-paginator-bundle": "*",
+    "symfony/amqp-messenger": "*",
     "symfony/asset": "*",
     "symfony/console": "*",
     "symfony/doctrine-messenger": "*",

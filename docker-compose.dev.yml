@@ -22,6 +22,10 @@ services:
     depends_on:
       - dbmysql
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports: [ "5672", "15672:15672" ]
+
   app:
     ports:
       - "8000:80"

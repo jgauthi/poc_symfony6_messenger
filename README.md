@@ -1,4 +1,4 @@
-# POC Symfony 6.2 with Messenger component
+# POC Symfony 6.2 with Messenger component + Docker (LAMP, MailDev, RabbitMQ)
 ## Prerequisites
 
 * The PHP version must be greater than or equal to PHP 8.2

@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends vim curl locale
 # https://github.com/mlocati/docker-php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 RUN install-php-extensions \
+    amqp \
     intl \
     memcached \
     mysqli pdo_mysql \
