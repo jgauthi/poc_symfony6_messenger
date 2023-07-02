@@ -41,6 +41,8 @@ clear-cache: perm
 	@$(CONSOLE) cache:clear --no-warmup
 	@$(CONSOLE) cache:warnot
 
+c\:c: clear-cache
+
 clear: perm                                                  ## Remove all the cache, the logs, the sessions and the built assets
 	@$(EXEC_SF) rm -rf var/cache/* var/log/* public/build
 	@$(EXEC_SF) rm -f var/.php_cs.cache
@@ -78,7 +80,7 @@ sf-cmd:  ## Symfony Command, example: `make sf-cmd CMD="debug:container"`
 sf-route:  ## Api routes
 	@$(CONSOLE) debug:route
 
-messenger: ## Consume messenger message, you can add verbose mode: CMD="-v"
+messenger: ## [Optional] Consume messenger message, you can add verbose mode: CMD="-v". This command is not required, supervisor send message automatically.
 	@$(CONSOLE) messenger:consume async $(CMD)
 
 shell:  ## Run Api container in interactive mode

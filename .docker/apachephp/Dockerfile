@@ -1,9 +1,8 @@
-# https://github.com/docker-library/php/blob/f4baf0edbc4e05e241938c68bcc7c9635707583d/7.2/stretch/apache/Dockerfile
 FROM php:8.2-apache
 MAINTAINER J.GAUTHI <github.com/jgauthi>
 
-# Some libs
-RUN apt-get update && apt-get install -y --no-install-recommends vim curl locales apt-utils
+# Some libs + Supervisor
+RUN apt-get update && apt-get install -y --no-install-recommends vim curl locales apt-utils supervisor
 
 # https://github.com/mlocati/docker-php-extension-installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
@@ -32,11 +31,6 @@ RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.
     && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-# Purge
-RUN rm -rf /var/lib/apt/lists/* \
-    && apt-get purge --auto-remove -y g++ \
-    && apt-get clean
-
 # PHP Conf
 # RUN usermod -u 1000 www-data
 COPY php.ini /usr/local/etc/php/php.ini
@@ -45,6 +39,14 @@ COPY php.ini /usr/local/etc/php/php.ini
 COPY apache_default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite headers
 
+# Purge
+RUN rm -rf /var/lib/apt/lists/* \
+    && apt-get purge --auto-remove -y g++ \
+    && apt-get clean
 
 # USER www-data
 WORKDIR /var/www/project/poc-messenger
+
+# Supervisor conf for apache and worker
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord", "-n"]
