@@ -38,6 +38,7 @@ make stop
 
 * For look at emails send by the smtp service, look at this url <http://localhost:1080> (maildev).
 * For database management, you can look at phpmyadmin: <http://localhost:8080>.
+* You can edit the var `COMPOSE_FILE` in [.env](.env) for add / remove containers from .docker/compose folder.
 
 Debug commands:
 

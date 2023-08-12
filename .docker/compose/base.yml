@@ -1,11 +1,11 @@
 version: '3.6'
 services:
   app:
-    build: .docker/apachephp
+    build: ../apachephp
     ports:
       - "80"
     volumes:
-      - .:/var/www/project/poc-messenger
+      - ../../:/var/www/project/poc-messenger
       - ${COMPOSER_HOME:-/tmp/composer}:/home/www-data/.composer # Share composer cache
     restart: unless-stopped
     depends_on:
@@ -13,7 +13,7 @@ services:
 
   dbmysql:
     build:
-      context: .docker/mysql
+      context: ../mysql
       args:
         MYSQL_USER: ${DB_USER}
         MYSQL_PASSWORD: ${DB_PASS}

@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  app:
+    ports:
+      - "8000:80"
+
+  dbmysql:
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+volumes:
+  mysql-db: #Keep database on local docker storage

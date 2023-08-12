@@ -20,3 +20,4 @@ $exec_docker find "$project_folder/public/images" -type d -exec chmod $chmod_fol
 $exec_docker find "$project_folder/var" -type f -exec chmod $chmod_file {} \;
 $exec_docker find "$project_folder/migrations" -type f -exec chmod $chmod_file {} \;
 $exec_docker find "$project_folder/vendor" -type f -exec chmod $chmod_file {} \;
+$exec_docker chmod +x bin/* vendor/bin/* .git/hooks/*

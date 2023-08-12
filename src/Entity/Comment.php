@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\CommentRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[ORM\EntityListeners(['App\Event\DoctrineListener\CommentListener'])]
+#[ORM\EntityListeners(['App\Event\EntityListener\CommentListener'])]
 class Comment
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]

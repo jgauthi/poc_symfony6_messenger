@@ -19,13 +19,13 @@ help:
 ##
 ## Project setup
 ##---------------------------------------------------------------------------
-up: docker-compose.override.yml up-ci  ## Start project with docker-compose + Dev env
+up: up-ci  ## Start project with docker-compose + Dev env
 
 stop: stop-ci 							## Stop docker containers
 
 restart: stop-ci up-ci										## Restart docker containers
 
-install: docker-compose.override.yml build up-ci composer-install perm  ## Create and start docker containers
+install: build up-ci composer-install perm  ## Create and start docker containers
 
 uninstall: stop                                              ## Remove docker containers
 	@$(DOCKER_COMPOSE) rm -vf
@@ -109,8 +109,3 @@ endef
 define composer
 	@$(1) php -d memory_limit=1500M /usr/local/bin/composer $(2) -n --working-dir=$(3)
 endef
-
-docker-compose.override.yml: docker-compose.$(DOCKER_COMPOSE_OVERRIDE).yml
-	@test -f docker-compose.override.yml \
-		&& $(call echo_text,/!\ docker-compose.$(DOCKER_COMPOSE_OVERRIDE).yml might have been modified - remove docker-compose.override.yml to be up-to-date,31) \
-		|| ( echo "Copy docker-compose.override.yml from docker-compose.$(DOCKER_COMPOSE_OVERRIDE).yml"; cp docker-compose.$(DOCKER_COMPOSE_OVERRIDE).yml docker-compose.override.yml )

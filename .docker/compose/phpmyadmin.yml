@@ -1,0 +1,17 @@
+version: '3.6'
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=${DB_HOST}
+      - PMA_PORT=${DB_PORT}
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASS}
+    volumes:
+      - ../phpmyadmin/config.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - ../phpmyadmin/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    restart: always
+    depends_on:
+      - dbmysql
