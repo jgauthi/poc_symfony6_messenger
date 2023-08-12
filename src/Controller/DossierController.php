@@ -20,10 +20,12 @@ class DossierController extends AbstractController
     #[Route('/', name: 'dossierList', methods: [Request::METHOD_GET])]
     public function dossierList(Request $request, PaginatorInterface $paginator): Response
     {
-        $query = $this->dossierRepository->findByStatus(DossierStatusEnum::ACTIVE);
+        $status = $request->query->getEnum('status', DossierStatusEnum::class, DossierStatusEnum::ACTIVE);
+        $query = $this->dossierRepository->queryByStatus($status);
         $dossierList = $paginator->paginate($query, $request->query->getInt('page', 1), 6);
 
         return $this->render('dossierList.html.twig', [
+            'status' => $status,
             'dossierList' => $dossierList,
         ]);
     }

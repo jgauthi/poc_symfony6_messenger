@@ -5,6 +5,7 @@ use App\Entity\Trait\LastUpdateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\ClientRepository::class)]
@@ -12,23 +13,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Client
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]
+    #[Groups('Client')]
     private ?int $id;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 3, max: 255), Assert\NotBlank]
+    #[Groups('Client')]
     private string $name;
 
     #[ORM\Column(length: 255)]
     #[Assert\Email, Assert\Length(min: 6, max: 255), Assert\NotBlank]
+    #[Groups('ClientDetails')]
     private string $email;
 
     #[ORM\Column(length: 100, nullable: true, options: ['default' => null])]
+    #[Groups('ClientDetails')]
     private ?string $address = null;
 
     #[ORM\Column(length: 50, nullable: true, options: ['default' => null])]
+    #[Groups('ClientDetails')]
     private ?string $city = null;
 
     #[ORM\Column(length: 50, nullable: true, options: ['default' => null])]
+    #[Groups('ClientDetails')]
     private ?string $country = null;
 
     #[ORM\OneToMany(targetEntity: Dossier::class, mappedBy: 'client', orphanRemoval: true)]

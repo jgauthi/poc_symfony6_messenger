@@ -8,34 +8,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: \App\Repository\DossierRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Dossier
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]
+    #[Groups('Dossier')]
     private ?int $id;
 
     #[ORM\Column(length: 255)]
+    #[Groups('Dossier')]
     private string $title;
 
     #[ORM\Column(enumType: DossierStatusEnum::class, options: ['default' => DossierStatusEnum::PREPARATION->value])]
+    #[Groups('Dossier')]
     private DossierStatusEnum $status = DossierStatusEnum::PREPARATION;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups('DossierDetails')]
     private string $content;
 
     #[ORM\ManyToOne(inversedBy: 'dossier'), ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Client $client;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'dossier')]
+    #[Groups('Category')]
     /** @var Collection<int, Category> */
     private Collection $categories;
 
     #[ORM\ManyToOne(inversedBy: 'dossiers'), ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[Groups('DossierDetails')]
     private User $author;
 
     #[ORM\OneToMany(mappedBy: 'dossier', targetEntity: Comment::class, orphanRemoval: true)]
+    #[Groups('Comment')]
     private Collection $comments;
 
     use CreatedDateTrait, LastUpdateTrait;

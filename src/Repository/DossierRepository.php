@@ -20,8 +20,12 @@ class DossierRepository extends ServiceEntityRepository
         parent::__construct($registry, Dossier::class);
     }
 
-    public function findByStatus(DossierStatusEnum $status): Query
+    public function queryByStatus(?DossierStatusEnum $status): Query
     {
+        if (null === $status) {
+            $status = DossierStatusEnum::ACTIVE;
+        }
+
         return $this->createQueryBuilder('dossier')
             ->where('dossier.status = :status')
             ->setParameter('status', $status->value)

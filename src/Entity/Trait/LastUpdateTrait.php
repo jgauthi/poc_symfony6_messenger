@@ -3,11 +3,13 @@ namespace App\Entity\Trait;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 // Entity require attribute for work: #[ORM\HasLifecycleCallbacks]
 trait LastUpdateTrait
 {
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[Groups('Details')]
     private \DateTimeInterface $lastUpdate;
 
     public function getLastUpdate(): \DateTimeInterface

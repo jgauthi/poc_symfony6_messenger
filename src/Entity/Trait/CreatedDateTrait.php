@@ -2,11 +2,13 @@
 namespace App\Entity\Trait;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 // Entity require attribute for work: #[ORM\HasLifecycleCallbacks]
 trait CreatedDateTrait
 {
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[Groups('Details')]
     private \DateTimeImmutable $createdDate;
 
     public function getCreatedDate(): \DateTimeImmutable

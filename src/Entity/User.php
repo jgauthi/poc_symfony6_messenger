@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 #[ORM\Entity(repositoryClass: \App\Repository\UserRepository::class),
     UniqueEntity('username', errorPath: 'username'),
@@ -26,41 +28,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public const DEFAULT_ROLES = [self::ROLE_COMMENTATOR];
 
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]
+    #[Groups('User')]
     private ?int $id;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 6, max: 255), Assert\NotBlank]
+    #[Groups('User')]
     private string $username;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Regex(
-        pattern: '#(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}#',
-        message: 'Password must be 7 characters long and contain at least one digit, one uppercase letter and one lower case letter.'
-    )]
+    #[Assert\PasswordStrength(['minScore' => PasswordStrength::STRENGTH_STRONG])]
     private string $password;
 
     // Plain password. Used for model validation. Must not be persisted.
-    #[Assert\Regex(
-        pattern: '#(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}#',
-        message: 'Password must be 7 characters long and contain at least one digit, one uppercase letter and one lower case letter.'
-    )]
+    #[Assert\PasswordStrength(['minScore' => PasswordStrength::STRENGTH_STRONG])]
     private ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 6, max: 255), Assert\NotBlank]
+    #[Groups('UserDetails')]
     private string $name;
 
     #[ORM\Column(length: 255)]
     #[Assert\Email, Assert\Length(min: 6, max: 255), Assert\NotBlank]
+    #[Groups('UserDetails')]
     private string $email;
 
     #[ORM\Column(type: Types::SIMPLE_ARRAY, options: ['default' => self::ROLE_COMMENTATOR])]
+    #[Groups('UserDetails')]
     private array $roles = self::DEFAULT_ROLES;
 
     #[ORM\Column(options: ['default' => true])]
+    #[Groups('UserDetails')]
     private bool $enabled = true;
 
     #[ORM\OneToMany(targetEntity: Dossier::class, mappedBy: 'author', orphanRemoval: true)]
+    #[Groups('Dossier')]
     /** @var Collection<int, Dossier> */
     private Collection $dossiers;
 

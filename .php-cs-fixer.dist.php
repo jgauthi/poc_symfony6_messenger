@@ -18,6 +18,7 @@ return (new PhpCsFixer\Config)
         '@Symfony:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_opening_tag' => false,
+        'blank_lines_before_namespace' => false,
         'linebreak_after_opening_tag' => true,
         'lowercase_cast' => false,
         'mb_str_functions' => true,
@@ -28,13 +29,13 @@ return (new PhpCsFixer\Config)
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
+        'nullable_type_declaration_for_default_null_value' => true,
         'ordered_class_elements' => [], // Remove 'use_trait'
         'ordered_imports' => true,
         'phpdoc_summary' => false, // In comments: add useless "." at ending and make urls in error
         'php_unit_strict' => true,
         'phpdoc_order' => true,
         'semicolon_after_instruction' => true,
-        'single_blank_line_before_namespace' => false,
         'single_import_per_statement' => false,
         'single_trait_insert_per_statement' => false,
         'strict_comparison' => true,
@@ -42,4 +43,4 @@ return (new PhpCsFixer\Config)
     ])
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/var/cache/.php_cs.cache')
-    ;
+;

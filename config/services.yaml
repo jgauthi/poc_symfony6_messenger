@@ -11,6 +11,7 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     bind:
+      string $appTitle: "SF-Demo"
       string $imagesPublic: "%kernel.project_dir%/public/images"
       string $imagesCategoryPublic: "%kernel.project_dir%/public/images/category"
 
@@ -25,12 +26,6 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
-
-  App\Event\Subscriber\HashPasswordListener:
-    class: App\Event\Subscriber\HashPasswordListener
-    tags:
-      - { name: doctrine.event_subscriber, event: prePersist }
-      - { name: doctrine.event_subscriber, event: preUpdate }
 
   App\Event\EntityListener\CommentListener:
     tags:

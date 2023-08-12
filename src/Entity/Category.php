@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: \App\Repository\CategoryRepository::class)]
@@ -14,15 +15,19 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Category
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]
+    #[Groups('Category')]
     private ?int $id;
 
     #[ORM\Column(length: 100)]
+    #[Groups('Category')]
     private string $title;
 
     #[ORM\Column(length: 255, nullable: true, options: ['default' => null])]
+    #[Groups('CategoryDetails')]
     private ?string $image = null;
 
     #[Vich\UploadableField(mapping: 'category_images', fileNameProperty: 'image')]
+    #[Groups('CategoryDetails')]
     public ?File $file = null;
 
     #[ORM\ManyToMany(targetEntity: Dossier::class, inversedBy: 'categories')]
