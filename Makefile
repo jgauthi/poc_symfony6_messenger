@@ -90,14 +90,14 @@ shell:  ## Run Api container in interactive mode
 
 # Internal rules
 up-ci:
-	$(DOCKER_COMPOSE) up -d
+	@$(DOCKER_COMPOSE) up -d
 
 stop-ci:
-	$(DOCKER_COMPOSE) stop
+	@$(DOCKER_COMPOSE) stop
 
 build:
-	$(DOCKER_COMPOSE) pull --ignore-pull-failures
-	$(DOCKER_COMPOSE) build --force-rm
+	@$(DOCKER_COMPOSE) pull --ignore-pull-failures
+	@$(DOCKER_COMPOSE) build --force-rm
 
 perm:
 	@bash $(SCRIPT)/perm.sh "$(EXEC)" "$(DIR_PROJECT)"

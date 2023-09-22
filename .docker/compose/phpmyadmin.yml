@@ -12,6 +12,6 @@ services:
     volumes:
       - ../phpmyadmin/config.inc.php:/etc/phpmyadmin/config.user.inc.php
       - ../phpmyadmin/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-    restart: always
+    restart: unless-stopped
     depends_on:
       - dbmysql

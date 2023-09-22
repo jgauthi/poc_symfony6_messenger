@@ -19,5 +19,6 @@ public/images/*
 ###< vich/uploader-bundle ###
 
 ###> docker-compose ###
+.docker/compose/custom.yml
 docker-compose.override.yml
 ###< docker-compose ###
