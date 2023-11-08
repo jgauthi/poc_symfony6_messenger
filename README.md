@@ -6,7 +6,7 @@ The messages are automatically consumed (send) by a worker from [supervisor](htt
 
 ## Prerequisites
 
-* Docker & Docker-compose
+* Docker v24+ & Docker compose v2
 * `Make` command. On linux, install with `sudo apt install build-essential`. On Windows, [see here](https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows/54086635).
 * These ports must be available for docker: `8000, 8080, 1025, 1080, 15672` _(you can change it on `docker-compose.override.yml` file after install)_.
 

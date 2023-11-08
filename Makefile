@@ -5,7 +5,7 @@ ifneq ("$(wildcard .env)","")
 endif
 
 # Init var
-DOCKER_COMPOSE?=docker-compose
+DOCKER_COMPOSE?=docker compose
 EXEC?=$(DOCKER_COMPOSE) exec -u root app
 EXEC_SF?=$(DOCKER_COMPOSE) exec -u www-data app
 DIR_PROJECT=/var/www/project/poc-messenger
@@ -19,7 +19,7 @@ help:
 ##
 ## Project setup
 ##---------------------------------------------------------------------------
-up: up-ci  ## Start project with docker-compose + Dev env
+up: up-ci  ## Start project with docker compose + Dev env
 
 stop: stop-ci 							## Stop docker containers
 
