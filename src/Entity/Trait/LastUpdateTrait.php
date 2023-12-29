@@ -10,14 +10,14 @@ trait LastUpdateTrait
 {
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
     #[Groups('Details')]
-    private \DateTimeInterface $lastUpdate;
+    private \DateTime $lastUpdate;
 
-    public function getLastUpdate(): \DateTimeInterface
+    public function getLastUpdate(): \DateTime
     {
         return $this->lastUpdate;
     }
 
-    public function setLastUpdate(\DateTimeInterface $lastUpdate): self
+    public function setLastUpdate(\DateTime $lastUpdate): self
     {
         $this->lastUpdate = $lastUpdate;
 

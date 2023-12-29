@@ -1,8 +1,5 @@
 security:
   password_hashers:
-    # Our user class and the algorithm we'll use to encode passwords
-    # 'auto' means to let Symfony choose the best possible password hasher (Argon2 or Bcrypt)
-    # https://symfony.com/doc/current/security.html#c-encoding-passwords
     Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
   providers:
     database_users:

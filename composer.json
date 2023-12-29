@@ -1,6 +1,6 @@
 {
   "name": "jgauthi/poc_symfony6_messenger",
-  "description": "POC Symfony 6.2 with messenger component",
+  "description": "POC Symfony 6.4 with messenger component",
   "type": "project",
   "license": "GPL-3.0-only",
   "require": {
@@ -15,6 +15,7 @@
     "knplabs/knp-paginator-bundle": "*",
     "symfony/amqp-messenger": "*",
     "symfony/asset": "*",
+    "symfony/clock": "*",
     "symfony/console": "*",
     "symfony/doctrine-messenger": "*",
     "symfony/dotenv": "*",
@@ -101,7 +102,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "6.3.*"
+      "require": "6.4.*"
     }
   },
   "authors": [

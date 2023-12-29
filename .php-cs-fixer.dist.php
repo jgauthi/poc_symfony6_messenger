@@ -25,6 +25,7 @@ return (new PhpCsFixer\Config)
         'native_function_invocation' => false,
         'native_constant_invocation' => false,
         'new_with_braces' => false,
+        'new_with_parentheses' => false,
         'no_php4_constructor' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
