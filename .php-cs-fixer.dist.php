@@ -31,7 +31,7 @@ return (new PhpCsFixer\Config)
         'no_useless_else' => true,
         'no_useless_return' => true,
         'nullable_type_declaration_for_default_null_value' => true,
-        'ordered_class_elements' => [], // Remove 'use_trait'
+        'ordered_class_elements' => false, // Remove 'use_trait'
         'ordered_imports' => true,
         'phpdoc_summary' => false, // In comments: add useless "." at ending and make urls in error
         'php_unit_strict' => true,

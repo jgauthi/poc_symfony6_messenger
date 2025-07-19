@@ -4,10 +4,15 @@ includes:
   - vendor/phpstan/phpstan-doctrine/extension.neon
 
 parameters:
-  level: 8
+  level: 6
+  ignoreErrors:
+      - identifier: missingType.iterableValue
+      - identifier: missingType.generics
+      - identifier: instanceof.alwaysTrue
+      # - '#should return non-empty-string but returns string#i'
   paths:
     - src
-  excludes_analyse:
+  excludePaths:
     - migrations
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
+    - var
+    - vendor

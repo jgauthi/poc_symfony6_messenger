@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.4-apache
 MAINTAINER J.GAUTHI <github.com/jgauthi>
 
 # Some libs + Supervisor

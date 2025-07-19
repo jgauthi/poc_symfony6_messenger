@@ -1,7 +1,7 @@
 <?php
 namespace App\Message;
 
-class SendComment
+class SendCommentMessage
 {
     public function __construct(private readonly int $commentId)
     {

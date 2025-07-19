@@ -4,7 +4,7 @@
   "type": "project",
   "license": "GPL-3.0-only",
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.4",
     "ext-ctype": "*",
     "ext-iconv": "*",
     "ext-simplexml": "*",
@@ -50,6 +50,7 @@
     "friendsofphp/php-cs-fixer": "*",
     "php-parallel-lint/php-parallel-lint": "^1.3",
     "phpro/grumphp-shim": "1.*",
+    "phpstan/phpstan": "2.*",
     "phpstan/phpstan-doctrine": "*",
     "phpstan/phpstan-symfony": "*",
     "symfony/debug-bundle": "*",
