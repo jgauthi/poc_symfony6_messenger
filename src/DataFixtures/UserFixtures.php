@@ -8,13 +8,13 @@ use Faker\Factory as FakerFactory;
 
 class UserFixtures extends Fixture
 {
-    public const USERS = [
+    public const array USERS = [
         'admin' => ['enabled' => true, 'roles' => [User::ROLE_ADMIN]],
         'editor' => ['enabled' => false, 'roles' => [User::ROLE_EDITOR]],
         'writer' => ['enabled' => true, 'roles' => [User::ROLE_WRITER]],
         'commentator' => ['enabled' => true, 'roles' => [User::ROLE_COMMENTATOR]],
     ];
-    public const PASSWORD = 'local';
+    public const string PASSWORD = 'local';
     private \Faker\Generator $faker;
 
     public function __construct()
@@ -39,5 +39,10 @@ class UserFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getRandomReference(): string
+    {
+        return 'user_'.array_rand(self::USERS, 1);
     }
 }

@@ -8,7 +8,7 @@ use Faker\Factory as FakerFactory;
 
 class ClientFixtures extends Fixture
 {
-    public const NB_FIXTURE = 10;
+    public const int NB_FIXTURE = 10;
     private \Faker\Generator $faker;
 
     public function __construct()
@@ -32,5 +32,10 @@ class ClientFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getRandomReference(): string
+    {
+        return 'client_'.rand(0, self::NB_FIXTURE - 1);
     }
 }

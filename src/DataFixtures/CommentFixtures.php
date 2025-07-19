@@ -9,7 +9,7 @@ use Faker\Factory as FakerFactory;
 
 class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_FIXTURE = 10;
+    public const int NB_FIXTURE = 10;
     private \Faker\Generator $faker;
 
     public function __construct()
@@ -21,10 +21,11 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
     {
         for ($i = 0; $i < self::NB_FIXTURE; ++$i) {
             /** @var Dossier $randomDossier */
-            $randomDossier = rand(0, DossierFixtures::NB_FIXTURE - 1);
-            $randomDossier = $this->getReference("dossier_{$randomDossier}"); /** @var Dossier $randomDossier */
-            $randomUsername = array_rand(UserFixtures::USERS, 1);
-            $randomUsername = $this->getReference("user_{$randomUsername}"); /** @var User $randomUsername */
+            $randomDossier = $this->getReference(DossierFixtures::getRandomReference(), Dossier::class);
+
+            /** @var User $randomUsername */
+            $randomUsername = $this->getReference(UserFixtures::getRandomReference(), User::class);
+
             $comment = (new Comment)
                 ->setContent($this->faker->text())
                 ->setDossier($randomDossier)
@@ -45,5 +46,10 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             DossierFixtures::class,
             UserFixtures::class,
         ];
+    }
+
+    public static function getRandomReference(): string
+    {
+        return 'dossier_'.rand(0, self::NB_FIXTURE - 1);
     }
 }

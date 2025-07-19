@@ -10,7 +10,7 @@ use Faker\Factory as FakerFactory;
 
 class DossierFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_FIXTURE = 20;
+    public const int NB_FIXTURE = 20;
     private \Faker\Generator $faker;
 
     public function __construct()
@@ -32,10 +32,11 @@ class DossierFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < self::NB_FIXTURE; ++$i) {
             /** @var Client $randomClient */
-            $randomClient = rand(0, ClientFixtures::NB_FIXTURE - 1);
-            $randomClient = $this->getReference("client_{$randomClient}"); /** @var Client $randomClient */
-            $randomUsername = array_rand(UserFixtures::USERS, 1);
-            $randomUsername = $this->getReference("user_{$randomUsername}"); /** @var User $randomUsername */
+            $randomClient = $this->getReference(ClientFixtures::getRandomReference(), Client::class);
+
+            /** @var User $randomUsername */
+            $randomUsername = $this->getReference(UserFixtures::getRandomReference(), User::class);
+
             $dossier = (new Dossier)
                 ->setTitle(ucfirst(implode(' ', (array) $this->faker->unique()->words(rand(2, 4)))))
                 ->setContent($this->faker->text())
@@ -57,5 +58,10 @@ class DossierFixtures extends Fixture implements DependentFixtureInterface
             ClientFixtures::class,
             UserFixtures::class,
         ];
+    }
+
+    public static function getRandomReference(): string
+    {
+        return 'dossier_'.rand(0, self::NB_FIXTURE - 1);
     }
 }

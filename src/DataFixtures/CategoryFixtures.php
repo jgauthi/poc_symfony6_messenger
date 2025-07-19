@@ -2,6 +2,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Dossier;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CategoryFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const NB_FIXTURE = 7;
+    public const int NB_FIXTURE = 7;
     private \Faker\Generator $faker;
 
     public function __construct(private string $imagesPublic, private string $imagesCategoryPublic)
@@ -54,16 +55,17 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
 
             $alreadyUse = [];
             for ($j = 0; $j < rand(1, 5); ++$j) {
-                $randomDossier = rand(0, DossierFixtures::NB_FIXTURE - 1);
+                $randomDossier = DossierFixtures::getRandomReference();
                 if (\in_array($randomDossier, $alreadyUse, true)) {
                     continue;
                 }
 
                 $alreadyUse[] = $randomDossier;
-                $category->addDossier($this->getReference("dossier_{$randomDossier}")); // @phpstan-ignore-line
+                $category->addDossier($this->getReference($randomDossier, Dossier::class));
             }
 
             $manager->persist($category);
+            $this->setReference("category_$i", $category);
         }
 
         $manager->flush();
@@ -74,5 +76,10 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         return [
             DossierFixtures::class,
         ];
+    }
+
+    public static function getRandomReference(): string
+    {
+        return 'category_'.rand(0, self::NB_FIXTURE - 1);
     }
 }
