@@ -6,7 +6,7 @@ services:
     volumes:
       - ../../:/var/www/project/poc-messenger
       - ${COMPOSER_HOME:-/tmp/composer}:/home/www-data/.composer # Share composer cache
-    restart: unless-stopped
+    restart: ${RESTART_POLICY:-on-failure}
     depends_on:
       - dbmysql
 
@@ -24,6 +24,6 @@ services:
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASS}
       - TZ=${TIMEZONE:-Europe/Paris}
-    restart: unless-stopped
+    restart: ${RESTART_POLICY:-on-failure}
     ports:
       - "3306"

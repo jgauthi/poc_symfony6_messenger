@@ -11,6 +11,6 @@ services:
     volumes:
       - ../phpmyadmin/config.inc.php:/etc/phpmyadmin/config.user.inc.php
       - ../phpmyadmin/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-    restart: unless-stopped
+    restart: ${RESTART_POLICY:-on-failure}
     depends_on:
       - dbmysql
