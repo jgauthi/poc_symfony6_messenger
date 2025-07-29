@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Enum\DossierStatusEnum;
 use App\Entity\{Comment, Dossier, User};
+use App\Entity\Enum\DossierStatusEnum;
 use App\Form\CommentType;
 use App\Repository\{CommentRepository, DossierRepository};
 use Knp\Component\Pager\PaginatorInterface;
@@ -21,7 +21,7 @@ class DossierController extends AbstractController
     public function dossierList(Request $request, PaginatorInterface $paginator): Response
     {
         $status = $request->query->getEnum('status', DossierStatusEnum::class, DossierStatusEnum::ACTIVE);
-        $query = $this->dossierRepository->queryByStatus($status);
+        $query = $this->dossierRepository->queryBuilderByStatus($status)->getQuery();
         $dossierList = $paginator->paginate($query, $request->query->getInt('page', 1), 6);
 
         return $this->render('dossierList.html.twig', [

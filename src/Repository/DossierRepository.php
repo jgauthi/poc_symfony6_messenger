@@ -4,7 +4,7 @@ namespace App\Repository;
 use App\Entity\Dossier;
 use App\Entity\Enum\DossierStatusEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,16 +20,20 @@ class DossierRepository extends ServiceEntityRepository
         parent::__construct($registry, Dossier::class);
     }
 
-    public function queryByStatus(?DossierStatusEnum $status): Query
+    public function queryBuilderByStatus(?DossierStatusEnum $status, string $operation = 'eq'): QueryBuilder
     {
-        if (null === $status) {
+        $qb = $this->createQueryBuilder('dossier');
+        if (!method_exists($qb->expr(), $operation)) {
+            throw new \InvalidArgumentException(sprintf('Operation "%s" is not supported.', $operation));
+        } elseif (null === $status) {
             $status = DossierStatusEnum::ACTIVE;
         }
 
-        return $this->createQueryBuilder('dossier')
-            ->where('dossier.status = :status')
+        $qb
+            ->where($qb->expr()->$operation('dossier.status', ':status'))
             ->setParameter('status', $status->value)
-            ->getQuery()
         ;
+
+        return $qb;
     }
 }
