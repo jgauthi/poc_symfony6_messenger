@@ -81,7 +81,7 @@ sf-route:  ## Api routes
 	@$(CONSOLE) debug:route
 
 messenger: ## [Optional] Consume messenger message, you can add verbose mode: CMD="-v". This command is not required, supervisor send message automatically.
-	@$(CONSOLE) messenger:consume async $(CMD)
+	@$(CONSOLE) messenger:consume async scheduler_default $(CMD)
 
 shell:  ## Run Api container in interactive mode
 	@$(EXEC) /bin/bash

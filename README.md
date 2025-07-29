@@ -1,7 +1,7 @@
-# POC Symfony 6.4 with Messenger component + Docker (LAMP with Supervisor, MailDev, RabbitMQ)
-Messenger provides a message bus with the ability to send messages and then handle them immediately in your application or send them through transports (e.g. queues) to be handled later. To learn more deeply about it, read the [Messenger component docs](https://symfony.com/doc/6.2/messenger.htmlcomponents/messenger.html).
+# POC Symfony 6.4 with Messenger component + Scheduler + Docker (LAMP with Supervisor, MailDev, RabbitMQ)
+Messenger provides a message bus with the ability to send messages and then handle them immediately in your application or send them through transports (e.g. queues) to be handled later. To learn more deeply about it, read the [Messenger component docs](https://symfony.com/doc/6.4/messenger.htmlcomponents/messenger.html). [Scheduler](https://symfony.com/doc/6.4/messenger.htmlcomponents/scheduler.html) is a component that allows you to schedule messages to be sent at a later time, which is useful for delayed tasks or periodic jobs.
 
-The messages are automatically consumed (send) by a worker from [supervisor](http://supervisord.org). Without it, you need to launch manually the command `make messenger` (or `php bin/console messenger:consume async` in local symfony server).
+The messages are automatically consumed (send) by a worker from [supervisor](http://supervisord.org). Without it, you need to launch manually the command `make messenger` (or `php bin/console messenger:consume async scheduler_default` in local symfony server).
 
 
 ## Prerequisites
@@ -48,6 +48,9 @@ make messenger CMD="-vv"
 # Retry failed messages several times (3 attempts)
 make sf-cmd CMD="messenger:failed:show"
 make sf-cmd CMD="messenger:failed:retry"
+
+# Schedule tasks list
+make sf-cmd CMD="debug:scheduler"
 ```
 
 Enjoy!

@@ -43,5 +43,6 @@ RUN rm -rf /var/lib/apt/lists/* \
 WORKDIR /var/www/project/poc-messenger
 
 # Supervisor conf for apache and worker
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord-async.conf /etc/supervisor/conf.d/supervisord-async.conf
+COPY supervisord-scheduler.conf /etc/supervisor/conf.d/supervisord-scheduler.conf
 CMD ["/usr/bin/supervisord", "-n"]
