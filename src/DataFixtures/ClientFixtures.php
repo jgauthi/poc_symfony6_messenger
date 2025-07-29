@@ -25,6 +25,7 @@ class ClientFixtures extends Fixture
                 ->setAddress($this->faker->unique()->optional(0.8)->address())
                 ->setCity($this->faker->city())
                 ->setCountry($this->faker->country())
+                ->setActive($this->faker->boolean(70))
             ;
 
             $manager->persist($client);

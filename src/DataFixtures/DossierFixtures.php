@@ -43,6 +43,7 @@ class DossierFixtures extends Fixture implements DependentFixtureInterface
                 ->setStatus($fctRandomStatus())
                 ->setClient($randomClient)
                 ->setAuthor($randomUsername)
+                ->setCreatedDate(\DateTimeImmutable::createFromInterface($this->faker->dateTimeBetween('-1 year')))
             ;
 
             $manager->persist($dossier);

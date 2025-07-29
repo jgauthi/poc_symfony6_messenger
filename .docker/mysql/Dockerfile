@@ -1,5 +1,5 @@
 FROM mysql:8
-MAINTAINER J.GAUTHI <github.com/jgauthi>
+LABEL maintainer="J.GAUTHI <github.com/jgauthi>"
 
 ARG DB_USER
 ARG DB_PASSWORD

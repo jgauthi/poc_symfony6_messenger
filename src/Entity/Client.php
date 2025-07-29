@@ -38,6 +38,9 @@ class Client
     #[Groups('ClientDetails')]
     private ?string $country = null;
 
+    #[ORM\Column(options: ['default' => true])]
+    private bool $active = true;
+
     #[ORM\OneToMany(targetEntity: Dossier::class, mappedBy: 'client', orphanRemoval: true)]
     /** @var Collection<int, Dossier> */
     private Collection $dossier;
@@ -119,9 +122,19 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection<int, Dossier>
-     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /** @return Collection<int, Dossier> */
     public function getDossier(): Collection
     {
         return $this->dossier;

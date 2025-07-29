@@ -1,5 +1,5 @@
 FROM php:8.4-apache
-MAINTAINER J.GAUTHI <github.com/jgauthi>
+LABEL maintainer="J.GAUTHI <github.com/jgauthi>"
 
 # Some libs + Supervisor
 RUN apt-get update && apt-get install -y --no-install-recommends vim curl locales apt-utils supervisor
@@ -39,10 +39,11 @@ RUN rm -rf /var/lib/apt/lists/* \
     && apt-get purge --auto-remove -y g++ \
     && apt-get clean
 
-# USER www-data
-WORKDIR /var/www/project/poc-messenger
-
 # Supervisor conf for apache and worker
 COPY supervisord-async.conf /etc/supervisor/conf.d/supervisord-async.conf
 COPY supervisord-scheduler.conf /etc/supervisor/conf.d/supervisord-scheduler.conf
+
+# USER www-data
+WORKDIR /var/www/project/poc-messenger
+
 CMD ["/usr/bin/supervisord", "-n"]
