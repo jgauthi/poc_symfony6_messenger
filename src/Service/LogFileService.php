@@ -19,7 +19,7 @@ class LogFileService
         $logFile = sprintf('%s/%s-%s.log', $this->logDir, $name, $now->format('Y-m-d'));
 
         error_log(
-            sprintf('[%s] %s'.PHP_EOL, $now->format('Y-m-d H:i:s'), $message),
+            sprintf('[%s] %s'.PHP_EOL, $now->format('H:i:s'), $message),
             3,
             $logFile,
         );
