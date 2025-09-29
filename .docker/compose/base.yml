@@ -9,6 +9,7 @@ services:
     restart: ${RESTART_POLICY:-on-failure}
     depends_on:
       - dbmysql
+      - memcached
 
   dbmysql:
     build:

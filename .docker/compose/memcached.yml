@@ -1,0 +1,7 @@
+services:
+  memcached:
+    image: memcached:1.6-alpine
+    command: memcached -m 64 -o modern -v
+    restart: ${RESTART_POLICY:-on-failure}
+    ports:
+      - "11211"
