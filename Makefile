@@ -33,13 +33,14 @@ uninstall: stop                                              ## Remove docker co
 reset: uninstall install                                     ## Remove and re-create docker containers (delete all data)
 refresh:                    			                     ## Remove and re-create docker containers (WITHOUT delete all data)
 	@$(DOCKER_COMPOSE) down
-	@make up-ci
+	@make up-ci clear-cache
+
+rebuild-app: ## Rebuild only app container
+	@$(DOCKER_COMPOSE) build --no-cache app
+	@make up-ci clear-cache
 
 clear-cache: perm
-	@$(CONSOLE) cache:clear --no-warmup
-	@$(CONSOLE) cache:warmup
-	@$(CONSOLE) cache:clear --no-warmup
-	@$(CONSOLE) cache:warnot
+	@$(CONSOLE) cache:clear
 
 c\:c: clear-cache
 
